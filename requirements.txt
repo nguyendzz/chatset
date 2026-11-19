@@ -1,2 +1,6 @@
-streamlit
+flask
 httpx
+pillow
+pypdf
+python-docx
+gunicorn
