@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ Chat sex premium</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #0e1117; color: #fafafa; display: flex; height: 100vh; overflow: hidden; }
+#particles-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.particle { position: absolute; border-radius: 50%; background: rgba(16, 163, 127, 0.16); animation: floatUp linear infinite; }
+@keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.3; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(30px) scale(0.95); } to { opacity: 1; transform: translateX(0) scale(1); } }
+@keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px) scale(0.95); } to { opacity: 1; transform: translateX(0) scale(1); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes gptSpinPulse { 0% { transform: rotate(0deg) scale(0.95); opacity: 0.85; } 50% { transform: rotate(180deg) scale(1.06); opacity: 1; } 100% { transform: rotate(360deg) scale(0.95); opacity: 0.85; } }
+@keyframes shimmerSlide { 0% { background-position: -220% 0; } 100% { background-position: 220% 0; } }
+@keyframes dotBounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.35; } 40% { transform: translateY(-4px); opacity: 1; } }
+
+.sidebar { width: 330px; background: linear-gradient(180deg, rgba(16, 163, 127, 0.04) 0%, #161b22 30%); border-right: 1px solid #30363d; display: flex; flex-direction: column; padding: 14px; gap: 10px; overflow-y: auto; z-index: 2; }
+.sidebar h3 { font-size: 14px; color: #10a37f; margin-top: 4px; }
+.sidebar label { font-size: 12px; color: #9ca3af; display: block; margin-top: 4px; }
+.sidebar input[type="text"], .sidebar input[type="password"], .sidebar input[type="number"], .sidebar select { width: 100%; padding: 7px 10px; border-radius: 8px; border: 1px solid #30363d; background: #0e1117; color: #fff; font-size: 13px; margin-top: 3px; }
+.sidebar hr { border: none; border-top: 1px solid #30363d; margin: 4px 0; }
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn { padding: 8px 10px; border-radius: 8px; border: none; background: #10a37f; color: #fff; font-weight: 600; cursor: pointer; font-size: 12px; transition: 0.2s; width: 100%; }
+.btn:hover { background: #0e8a6b; }
+.btn-sec { background: #21262d; border: 1px solid #30363d; }
+.btn-sec:hover { background: #30363d; }
+.btn-danger { background: rgba(248, 81, 73, 0.15); border: 1px solid rgba(248, 81, 73, 0.4); color: #f85149; }
+.btn-danger:hover { background: rgba(248, 81, 73, 0.3); }
+.caption { font-size: 11px; color: #8b949e; line-height: 1.4; }
+.check-row { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #e6edf3; margin-top: 4px; cursor: pointer; }
+
+.conv-list { display: flex; flex-direction: column; gap: 4px; max-height: 180px; overflow-y: auto; margin-top: 6px; }
+.conv-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 9px; border-radius: 8px; cursor: pointer; font-size: 12px; border: 1px solid transparent; transition: 0.2s; }
+.conv-item:hover { background: rgba(16, 163, 127, 0.1); border-color: rgba(16, 163, 127, 0.3); }
+.conv-item.active { background: rgba(16, 163, 127, 0.15); border-color: rgba(16, 163, 127, 0.4); }
+.conv-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.del-btn { background: none; border: none; color: #f85149; cursor: pointer; margin-left: 6px; }
+
+.metric-box { background: #0d1117; border: 1px solid #30363d; border-radius: 10px; padding: 8px; text-align: center; }
+.metric-lbl { font-size: 11px; color: #8b949e; }
+.metric-val { font-size: 15px; font-weight: 700; color: #fafafa; margin-top: 2px; }
+
+.balance-card { background: linear-gradient(135deg, #10a37f 0%, #0e8a6b 50%, #0d7a5f 100%); background-size: 200% 200%; animation: gradientShift 4s ease infinite; border-radius: 12px; padding: 12px; color: #fff; text-align: center; margin-top: 6px; }
+.balance-amount { font-size: 24px; font-weight: 700; }
+.balance-label { font-size: 11px; opacity: 0.85; }
+
+.tabs { display: flex; gap: 4px; margin-top: 6px; }
+.tab-btn { flex: 1; padding: 6px 4px; border-radius: 8px 8px 0 0; border: 1px solid #30363d; background: #0d1117; color: #8b949e; font-size: 11px; cursor: pointer; }
+.tab-btn.active { background: rgba(16, 163, 127, 0.18); color: #10a37f; border-color: rgba(16, 163, 127, 0.4); font-weight: 600; }
+.stats-card { background: linear-gradient(135deg, rgba(16, 163, 127, 0.08), rgba(99, 60, 255, 0.06)); border: 1px solid rgba(16, 163, 127, 0.2); border-radius: 10px; padding: 10px; font-size: 12px; overflow-x: auto; animation: fadeInUp 0.3s ease; }
+.stats-card h4 { margin-bottom: 6px; font-size: 13px; color: #10a37f; }
+.stats-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 6px; }
+.stats-table th { background: rgba(16, 163, 127, 0.12); padding: 4px; text-align: left; border-bottom: 1px solid rgba(16, 163, 127, 0.3); }
+.stats-table td { padding: 4px; border-bottom: 1px solid rgba(128, 128, 128, 0.12); }
+
+.main { flex: 1; display: flex; flex-direction: column; height: 100vh; z-index: 2; }
+.header { padding: 14px 24px; border-bottom: 1px solid #30363d; font-size: 20px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+.chat-box { flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+
+.msg-row { display: flex; gap: 12px; max-width: 86%; }
+.msg-row.user { align-self: flex-end; flex-direction: row-reverse; animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.msg-row.assistant { align-self: flex-start; animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.avatar { width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 20px; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.avatar svg { width: 30px; height: 30px; }
+
+.bubble { padding: 12px 16px; line-height: 1.6; font-size: 14px; word-wrap: break-word; overflow-x: auto; }
+.msg-row.user .bubble { background: linear-gradient(135deg, rgba(14, 116, 234, 0.14) 0%, rgba(99, 60, 255, 0.12) 100%); border: 1px solid rgba(14, 116, 234, 0.26); border-radius: 18px 18px 4px 18px; text-align: right; }
+.msg-row.assistant .bubble { background: linear-gradient(135deg, rgba(128, 128, 128, 0.08) 0%, rgba(16, 163, 127, 0.06) 100%); border: 1px solid rgba(128, 128, 128, 0.18); border-radius: 18px 18px 18px 4px; }
+.bubble img.preview { max-width: 260px; border-radius: 10px; margin: 6px 0; display: block; }
+.msg-row.user .bubble img.preview { margin-left: auto; }
+
+.code-block-wrapper { position: relative; margin: 8px 0; text-align: left; }
+.code-block-wrapper pre { background: #0d1117; padding: 12px; border-radius: 8px; overflow-x: auto; }
+.code-block-wrapper code { font-family: ui-monospace, monospace; font-size: 13px; }
+.code-copy-btn { position: absolute; top: 8px; right: 8px; padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(128,128,128,0.3); background: rgba(0,0,0,0.6); color: #e0e0e0; font-size: 11px; cursor: pointer; opacity: 0; transition: 0.2s; }
+.code-block-wrapper:hover .code-copy-btn { opacity: 1; }
+.code-copy-btn:hover, .code-copy-btn.copied { background: #10a37f; color: #fff; opacity: 1; }
+
+.thinking-card { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 14px; background: linear-gradient(110deg, rgba(16, 163, 127, 0.08) 25%, rgba(16, 163, 127, 0.22) 50%, rgba(16, 163, 127, 0.08) 75%); background-size: 220% 100%; animation: shimmerSlide 2.1s linear infinite; border: 1px solid rgba(16, 163, 127, 0.28); margin-bottom: 6px; }
+.thinking-logo { width: 22px; height: 22px; fill: #10a37f; animation: gptSpinPulse 2.4s infinite; }
+.thinking-dots span { display: inline-block; width: 5px; height: 5px; margin-left: 3px; border-radius: 50%; background: #10a37f; animation: dotBounce 1.3s infinite ease-in-out both; }
+.thinking-dots span:nth-child(1) { animation-delay: -0.32s; }
+.thinking-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+.reasoning { background: rgba(16, 163, 127, 0.08); border-left: 3px solid #10a37f; padding: 8px 12px; margin-bottom: 8px; border-radius: 6px; font-size: 12px; color: #9ca3af; }
+.reasoning summary { cursor: pointer; font-weight: 600; color: #10a37f; }
+.notice-box { background: rgba(210, 153, 34, 0.15); border: 1px solid rgba(210, 153, 34, 0.4); color: #e3b341; padding: 8px 12px; border-radius: 8px; font-size: 12px; margin-bottom: 8px; }
+.copy-btn-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.copy-btn { padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(128,128,128,0.28); background: rgba(128,128,128,0.08); color: #e5e7eb; font-size: 11px; cursor: pointer; transition: 0.2s; }
+.copy-btn:hover { background: rgba(16, 163, 127, 0.18); border-color: #10a37f; }
+.copy-btn.copied { color: #10a37f; border-color: #10a37f; }
+.meta { font-size: 11px; color: #8b949e; margin-top: 6px; }
+
+.input-area { padding: 14px 24px; border-top: 1px solid #30363d; background: #161b22; display: flex; gap: 10px; align-items: center; }
+.input-area textarea { flex: 1; resize: none; height: 46px; padding: 11px 14px; border-radius: 12px; border: 1px solid #30363d; background: #0e1117; color: #fff; font-family: inherit; font-size: 14px; }
+.file-label { padding: 10px 12px; background: #21262d; border: 1px solid #30363d; border-radius: 10px; cursor: pointer; font-size: 14px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="particles-bg"></div>
+
+<div class="sidebar">
+    <h3>💬 Cuộc hội thoại</h3>
+    <div class="row-2">
+        <button class="btn" onclick="newChat()">➕ Mới</button>
+        <button class="btn btn-sec" onclick="renderAll()">🔄 Làm mới</button>
+    </div>
+    <details open>
+        <summary style="font-size:12px;cursor:pointer;color:#e6edf3;">📂 Lịch sử (<span id="conv-count">0</span> cuộc)</summary>
+        <div class="conv-list" id="conv-list"></div>
+    </details>
+    <hr>
+
+    <h3>🖼️ Ảnh đại diện & Logo</h3>
+    <label>Ảnh đại diện của bạn</label>
+    <input type="file" id="avatar-input" accept="image/*" style="font-size:11px;margin-top:4px;" onchange="uploadAvatar(this)">
+    <label>Logo bên ChatGPT</label>
+    <select id="ai-avatar-choice" onchange="renderMessages()">
+        <option value="black">ChatGPT Đen chuẩn (Xóa nền)</option>
+        <option value="green" selected>ChatGPT Xanh ngọc (Xóa nền)</option>
+        <option value="user">Dùng ảnh của tôi</option>
+    </select>
+    <hr>
+
+    <h3>⚙️ Cấu hình API</h3>
+    <label>API Key</label>
+    <input type="password" id="api-key" value="sk-c2c32ff6b89bb397afe8fae4073a19f9ede34b13c521ad3bf7e1e0dd3612f92c">
+    <label>Base URL</label>
+    <input type="text" id="base-url" value="https://api.xingchiapi.com/v1">
+    <label>Chế độ kết nối</label>
+    <select id="mode">
+        <option value="Codex CLI (/v1/responses)">Codex CLI (/v1/responses)</option>
+        <option value="OpenCode (/v1/chat/completions)" selected>OpenCode (/v1/chat/completions)</option>
+        <option value="ZCode (/v1/chat/completions)">ZCode (/v1/chat/completions)</option>
+        <option value="Hermes Agent (/v1/chat/completions)">Hermes Agent (/v1/chat/completions)</option>
+    </select>
+    <label>Model</label>
+    <select id="model">
+        <option value="gpt-6.1-sol">gpt-6.1-sol</option>
+        <option value="gpt-6-astra">gpt-6-astra</option>
+    </select>
+    <label class="check-row"><input type="checkbox" id="auto-fallback" checked> 🔄 Tự đổi kênh/model khi lỗi 503</label>
+    <button class="btn btn-sec" onclick="testConnection()">⚡ Kiểm tra kết nối nhanh</button>
+    <div id="conn-log" class="caption"></div>
+
+    <label>🧠 Cấp độ tư duy (Reasoning)</label>
+    <select id="effort" onchange="updateEffortDesc()">
+        <option value="🤖 Tự động">🤖 Tự động</option>
+        <option value="⚡ Tức thì">⚡ Tức thì</option>
+        <option value="🚀 Nhanh">🚀 Nhanh</option>
+        <option value="⚖️ Trung bình">⚖️ Trung bình</option>
+        <option value="🧠 high">🧠 high</option>
+        <option value="🔬 xhigh">🔬 xhigh</option>
+        <option value="🌌 MAX">🌌 MAX</option>
+    </select>
+    <div id="effort-desc" class="caption"></div>
+
+    <label>Hệ số nhóm giá (Multiplier)</label>
+    <input type="number" id="multiplier" value="0.25" step="0.05" min="0.01" max="5">
+    <hr>
+
+    <h3>📊 Thống kê sử dụng</h3>
+    <div class="row-2">
+        <div class="metric-box"><div class="metric-lbl">Chi phí phiên</div><div class="metric-val" id="sess-cost">$0.000000</div></div>
+        <div class="metric-box"><div class="metric-lbl">Token phiên</div><div class="metric-val" id="sess-tok">0</div></div>
+    </div>
+    <button class="btn btn-sec" onclick="checkBalance()">💳 Kiểm tra số dư API</button>
+    <div id="balance-box"></div>
+
+    <div class="stats-card" id="alltime-box"></div>
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('week', this)">Tuần</button>
+        <button class="tab-btn" onclick="switchTab('month', this)">Tháng</button>
+        <button class="tab-btn" onclick="switchTab('year', this)">Năm</button>
+        <button class="tab-btn" onclick="switchTab('detail', this)">Chi tiết</button>
+    </div>
+    <div class="stats-card" id="tab-content"></div>
+    <hr>
+    <button class="btn btn-danger" onclick="resetSession()">🗑️ Xóa lịch sử & Đặt lại bộ đếm</button>
+</div>
+
+<div class="main">
+    <div class="header">
+        <span>✨ Chat sex premium</span>
+        <span id="status" style="font-size:12px;color:#10a37f;">Sẵn sàng</span>
+    </div>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="input-area">
+        <label class="file-label" for="file-input">📎 <span id="file-count" style="font-size:11px;color:#10a37f;"></span></label>
+        <input type="file" id="file-input" multiple style="display:none" onchange="updateFileCount()">
+        <textarea id="msg-input" placeholder="Nhập câu hỏi hoặc bấm đính kèm file..."></textarea>
+        <button class="btn" id="send-btn" style="width:auto;padding:11px 20px;" onclick="sendMessage()">Gửi</button>
+    </div>
+</div>
+
+<script>
+const OPENAI_PATH = "M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001a6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z";
+
+const THINKING_LEVELS = {
+    "🤖 Tự động": { effort: "auto", desc: "Khuyên dùng — câu hỏi thường trả lời ngay (2-4s), bài khó/ảnh mới suy luận sâu." },
+    "⚡ Tức thì": { effort: "low", desc: "Phản hồi siêu nhanh, ít suy nghĩ ngầm nhất — hợp câu hỏi đơn giản." },
+    "🚀 Nhanh": { effort: "low", desc: "Tốc độ cao, tiết kiệm token — hợp tra cứu nhanh và hội thoại thường." },
+    "⚖️ Trung bình": { effort: "medium", desc: "Cân đối hài hòa giữa tốc độ phản hồi và độ sâu logic." },
+    "🧠 high": { effort: "high", desc: "Suy luận kỹ nhiều bước — ổn định nhất cho viết code, giải toán và phân tích." },
+    "🔬 xhigh": { effort: "xhigh", desc: "Tư duy chuyên sâu cường độ cao — hợp bài toán hóc búa, kiến trúc hệ thống." },
+    "🌌 MAX": { effort: "max", desc: "Mức cao nhất (nếu kênh server báo 503 sẽ tự hạ về high để chạy tiếp)." }
+};
+
+const MODEL_PRICING = {
+    "gpt-6.1-sol": { input: 2.00, cached: 0.10, output: 10.00 },
+    "gpt-6-astra": { input: 10.00, cached: 1.00, output: 50.00 }
+};
+
+const CLIENT_MODES = {
+    "Codex CLI (/v1/responses)": { endpoint: "/responses", headers: { "OpenAI-Beta": "responses=experimental" } },
+    "OpenCode (/v1/chat/completions)": { endpoint: "/chat/completions", headers: { "X-Title": "OpenCode" } },
+    "ZCode (/v1/chat/completions)": { endpoint: "/chat/completions", headers: { "X-Title": "ZCode" } },
+    "Hermes Agent (/v1/chat/completions)": { endpoint: "/chat/completions", headers: { "X-Title": "Hermes Agent" } }
+};
+
+let convs = JSON.parse(localStorage.getItem("csp_convs_v2") || "{}");
+let stats = JSON.parse(localStorage.getItem("csp_stats_v2") || '{"total_tokens":0,"total_cost":0,"total_messages":0,"daily":{}}');
+let userAvatarData = localStorage.getItem("csp_avatar_v2") || "";
+let currentId = Object.keys(convs)[0] || Date.now().toString();
+let sessionCost = 0, sessionTokens = 0, currentTab = "week";
+
+function initParticles() {
+    const bg = document.getElementById("particles-bg");
+    for (let i = 0; i < 15; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        p.style.left = Math.random() * 100 + "%";
+        p.style.width = p.style.height = (2 + Math.random() * 3) + "px";
+        p.style.animationDuration = (12 + Math.random() * 20) + "s";
+        p.style.animationDelay = Math.random() * 15 + "s";
+        bg.appendChild(p);
+    }
+}
+
+function saveState() {
+    localStorage.setItem("csp_convs_v2", JSON.stringify(convs));
+    localStorage.setItem("csp_stats_v2", JSON.stringify(stats));
+}
+
+function updateEffortDesc() {
+    const k = document.getElementById("effort").value;
+    document.getElementById("effort-desc").innerText = THINKING_LEVELS[k].desc;
+}
+
+function uploadAvatar(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+            const c = document.createElement("canvas");
+            c.width = c.height = 200;
+            const side = Math.min(img.width, img.height);
+            c.getContext("2d").drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, 200, 200);
+            userAvatarData = c.toDataURL("image/jpeg", 0.9);
+            localStorage.setItem("csp_avatar_v2", userAvatarData);
+            renderMessages();
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function getAvatarHtml(role) {
+    if (role === "user") return userAvatarData ? `<img src="${userAvatarData}">` : "🧑";
+    const choice = document.getElementById("ai-avatar-choice").value;
+    if (choice === "user" && userAvatarData) return `<img src="${userAvatarData}">`;
+    const color = choice === "green" ? "#10a37f" : "#ffffff";
+    return `<svg viewBox="0 0 24 24" fill="${color}"><path d="${OPENAI_PATH}"/></svg>`;
+}
+
+function renderSidebar() {
+    const list = document.getElementById("conv-list");
+    const items = Object.values(convs).sort((a, b) => b.updated - a.updated);
+    document.getElementById("conv-count").innerText = items.length;
+    list.innerHTML = "";
+    items.slice(0, 20).forEach(c => {
+        const div = document.createElement("div");
+        div.className = "conv-item" + (c.id === currentId ? " active" : "");
+        div.innerHTML = `<span class="conv-title" onclick="openChat('${c.id}')">${c.id === currentId ? "▶ " : ""}${c.title}</span><button class="del-btn" onclick="delChat('${c.id}')">🗑️</button>`;
+        list.appendChild(div);
+    });
+    document.getElementById("sess-cost").innerText = `$${sessionCost.toFixed(6)}`;
+    document.getElementById("sess-tok").innerText = sessionTokens.toLocaleString();
+    document.getElementById("alltime-box").innerHTML = `
+        <h4>🌐 Tổng cộng (All time)</h4>
+        <div>🔢 <strong>${stats.total_tokens.toLocaleString()}</strong> tokens</div>
+        <div>💰 <strong>$${stats.total_cost.toFixed(4)}</strong> &nbsp;|&nbsp; 💬 <strong>${stats.total_messages}</strong></div>
+    `;
+    renderStatsTab();
+}
+
+function switchTab(tab, btn) {
+    currentTab = tab;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderStatsTab();
+}
+
+function renderStatsTab() {
+    const el = document.getElementById("tab-content");
+    const daily = stats.daily || {};
+    const today = new Date();
+    const daysMap = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+    let rows = "";
+
+    if (currentTab === "detail") {
+        Object.keys(daily).sort().reverse().forEach(d => {
+            const v = daily[d];
+            rows += `<tr><td>${d.slice(5)}</td><td>${v.messages}</td><td>${v.tokens.toLocaleString()}</td><td>$${v.cost.toFixed(4)}</td></tr>`;
+        });
+        el.innerHTML = `<h4>📋 Tất cả ngày</h4><table class="stats-table"><tr><th>Ngày</th><th>💬</th><th>Token</th><th>Chi phí</th></tr>${rows || "<tr><td colspan='4'>Chưa có dữ liệu</td></tr>"}</table>`;
+        return;
+    }
+
+    const period = currentTab === "week" ? 7 : currentTab === "month" ? 30 : 90;
+    let sumTok = 0, sumCost = 0, sumMsg = 0;
+    for (let i = 0; i < period; i++) {
+        const dt = new Date(today);
+        dt.setDate(today.getDate() - i);
+        const key = dt.toISOString().slice(0, 10);
+        const v = daily[key] || { tokens: 0, cost: 0, messages: 0, input_tokens: 0, output_tokens: 0 };
+        sumTok += v.tokens; sumCost += v.cost; sumMsg += v.messages;
+        if (i < 7 || v.tokens > 0) {
+            rows += `<tr><td>${key.slice(5)} (${daysMap[dt.getDay()]})</td><td>${v.messages}</td><td>${v.tokens.toLocaleString()}</td><td>$${v.cost.toFixed(4)}</td></tr>`;
+        }
+    }
+    const title = currentTab === "week" ? "📅 7 ngày qua" : currentTab === "month" ? "📆 30 ngày qua" : "📆 90 ngày qua";
+    el.innerHTML = `
+        <h4>${title}</h4>
+        <div>🔢 <strong>${sumTok.toLocaleString()}</strong> | 💰 <strong>$${sumCost.toFixed(4)}</strong> | 💬 ${sumMsg}</div>
+        <table class="stats-table"><tr><th>Ngày</th><th>💬</th><th>Token</th><th>Chi phí</th></tr>${rows}</table>
+    `;
+}
+
+function newChat() {
+    currentId = Date.now().toString();
+    sessionCost = 0; sessionTokens = 0;
+    renderAll();
+}
+
+function openChat(id) {
+    currentId = id;
+    sessionCost = 0; sessionTokens = 0;
+    renderAll();
+}
+
+function delChat(id) {
+    delete convs[id];
+    saveState();
+    if (id === currentId) newChat();
+    else renderSidebar();
+}
+
+function resetSession() {
+    if (convs[currentId]) convs[currentId].messages = [];
+    sessionCost = 0; sessionTokens = 0;
+    saveState();
+    renderAll();
+}
+
+function renderAll() {
+    renderSidebar();
+    renderMessages();
+}
+
+function renderMessages() {
+    const box = document.getElementById("chat-box");
+    box.innerHTML = "";
+    const msgs = convs[currentId]?.messages || [];
+    msgs.forEach(m => appendBubble(m.role, m.display_text, m.reasoning_text, m.meta, m.image_urls, m.attached_names));
+}
+
+function copyText(text, btn) {
+    navigator.clipboard.writeText(text);
+    const old = btn.innerText;
+    btn.classList.add("copied");
+    btn.innerText = "✓ Đã sao chép!";
+    setTimeout(() => { btn.classList.remove("copied"); btn.innerText = old; }, 1500);
+}
+
+function decorateCodeBlocks(container) {
+    container.querySelectorAll("pre").forEach(pre => {
+        if (pre.parentElement.classList.contains("code-block-wrapper")) return;
+        const wrap = document.createElement("div");
+        wrap.className = "code-block-wrapper";
+        pre.parentNode.insertBefore(wrap, pre);
+        wrap.appendChild(pre);
+        const btn = document.createElement("button");
+        btn.className = "code-copy-btn";
+        btn.innerText = "📋 Copy";
+        btn.onclick = () => copyText(pre.innerText, btn);
+        wrap.appendChild(btn);
+    });
+}
+
+function addCopyButtons(row, text) {
+    const c = row.querySelector(".copy-btn-container");
+    c.innerHTML = "";
+    const b1 = document.createElement("button");
+    b1.className = "copy-btn";
+    b1.innerText = "📋 Sao chép văn bản";
+    b1.onclick = () => copyText(text, b1);
+    c.appendChild(b1);
+    const matches = [...text.matchAll(/```[\w]*\n([\s\S]*?)```/g)];
+    matches.forEach((m, i) => {
+        const bc = document.createElement("button");
+        bc.className = "copy-btn";
+        bc.innerText = `💻 Code #${i + 1}`;
+        bc.onclick = () => copyText(m[1].trim(), bc);
+        c.appendChild(bc);
+    });
+}
+
+function appendBubble(role, text, reasoning = "", meta = "", images = [], attached = []) {
+    const box = document.getElementById("chat-box");
+    const row = document.createElement("div");
+    row.className = `msg-row ${role}`;
+    const attHtml = attached && attached.length ? `<div class="caption">📎 Đã đính kèm: ${attached.join(", ")}</div>` : "";
+    const imgHtml = (images || []).map(u => `<img class="preview" src="${u}">`).join("");
+    const reasonHtml = reasoning ? `<details class="reasoning"><summary>💭 Quá trình tư duy của AI</summary><div>${marked.parse(reasoning)}</div></details>` : "";
+    row.innerHTML = `<div class="avatar">${getAvatarHtml(role)}</div><div class="bubble">${attHtml}${imgHtml}${reasonHtml}<div class="content">${marked.parse(text || "")}</div><div class="copy-btn-container"></div><div class="meta">${meta || ""}</div></div>`;
+    decorateCodeBlocks(row);
+    if (role === "assistant" && text) addCopyButtons(row, text);
+    box.appendChild(row);
+    box.scrollTop = box.scrollHeight;
+    return row;
+}
+
+function updateFileCount() {
+    const n = document.getElementById("file-input").files.length;
+    document.getElementById("file-count").innerText = n ? n : "";
+}
+
+function compressImage(file) {
+    return new Promise(res => {
+        const r = new FileReader();
+        r.onload = e => {
+            const img = new Image();
+            img.onload = () => {
+                let w = img.width, h = img.height, max = 1280;
+                if (Math.max(w, h) > max) { const s = max / Math.max(w, h); w = Math.round(w * s); h = Math.round(h * s); }
+                const c = document.createElement("canvas");
+                c.width = w; c.height = h;
+                c.getContext("2d").drawImage(img, 0, 0, w, h);
+                res(c.toDataURL("image/jpeg", 0.85));
+            };
+            img.src = e.target.result;
+        };
+        r.readAsDataURL(file);
+    });
+}
+
+function readTextFile(file) {
+    return new Promise(res => {
+        const r = new FileReader();
+        r.onload = e => res(`--- Nội dung tệp: ${file.name} ---\n\`\`\`\n${e.target.result}\n\`\`\``);
+        r.readAsText(file);
+    });
+}
+
+function resolveEffort(label, text, hasFiles) {
+    const eff = THINKING_LEVELS[label].effort;
+    if (eff !== "auto") return eff;
+    if (hasFiles || text.length > 300 || /code|python|javascript|lập trình|sửa lỗi|debug|thuật toán|toán|api|sql|ielts|essay/i.test(text)) return "high";
+    return text.length < 60 ? "low" : "medium";
+}
+
+function makeHeaders(apiKey, modeName) {
+    return {
+        "Authorization": `Bearer ${apiKey.trim()}`,
+        "Content-Type": "application/json",
+        ...CLIENT_MODES[modeName].headers
+    };
+}
+
+function buildPayload(messages, model, effort, modeName, stream = true) {
+    if (CLIENT_MODES[modeName].endpoint === "/responses") {
+        const input = messages.map(m => {
+            if (m.role === "user") {
+                const c = [{ type: "input_text", text: m.full_text }, ...(m.image_urls || []).map(u => ({ type: "input_image", image_url: u }))];
+                return { role: "user", content: c };
+            }
+            return { role: "assistant", content: [{ type: "output_text", text: m.full_text }] };
+        });
+        return { model, instructions: "You are a helpful AI assistant. Respond clearly and completely in the user's language.", input, reasoning: { effort, summary: "auto" }, store: false, stream };
+    }
+    const formatted = messages.map(m => {
+        if (m.role === "user" && m.image_urls && m.image_urls.length) {
+            return { role: "user", content: [{ type: "text", text: m.full_text }, ...m.image_urls.map(u => ({ type: "image_url", image_url: { url: u } }))] };
+        }
+        return { role: m.role, content: m.full_text };
+    });
+    const p = { model, messages: formatted, reasoning_effort: effort, stream };
+    if (stream) p.stream_options = { include_usage: true };
+    return p;
+}
+
+async function testConnection() {
+    const apiKey = document.getElementById("api-key").value.trim();
+    const baseUrl = document.getElementById("base-url").value.trim().replace(/\/$/, "");
+    const model = document.getElementById("model").value;
+    const logEl = document.getElementById("conn-log");
+    logEl.innerText = "Đang kiểm tra kết nối...";
+    const logs = [];
+    for (const [mName, cfg] of Object.entries(CLIENT_MODES)) {
+        try {
+            const r = await fetch(`${baseUrl}${cfg.endpoint}`, {
+                method: "POST",
+                headers: makeHeaders(apiKey, mName),
+                body: JSON.stringify(buildPayload([{ role: "user", full_text: "Say OK" }], model, "low", mName, false))
+            });
+            if (r.ok) {
+                document.getElementById("mode").value = mName;
+                logEl.innerHTML = `<span style="color:#10a37f">✅ Kết nối tốt nhất: ${mName}</span>`;
+                return;
+            }
+            logs.push(`❌ ${mName}: HTTP ${r.status}`);
+        } catch (e) {
+            logs.push(`⚠️ ${mName}: ${e.message}`);
+        }
+    }
+    logEl.innerHTML = `<span style="color:#f85149">${logs.join("<br>")}</span>`;
+}
+
+async function checkBalance() {
+    const apiKey = document.getElementById("api-key").value.trim();
+    const baseUrl = document.getElementById("base-url").value.trim().replace(/\/v1\/?$/, "");
+    const box = document.getElementById("balance-box");
+    box.innerHTML = '<div class="caption">Đang kiểm tra số dư...</div>';
+    for (const ep of ["/dashboard/billing/credit_grants", "/dashboard/billing/subscription", "/billing/credit_grants"]) {
+        try {
+            const r = await fetch(`${baseUrl}${ep}`, { headers: { "Authorization": `Bearer ${apiKey}` } });
+            if (r.ok) {
+                const bal = await r.json();
+                const granted = bal.total_granted || bal.hard_limit_usd || 0;
+                let used = bal.total_used || bal.total_usage || 0;
+                if (used > 1000) used /= 100;
+                const rem = granted ? granted - used : 0;
+                box.innerHTML = `<div class="balance-card"><div class="balance-label">💳 Số dư còn lại</div><div class="balance-amount">$${rem.toFixed(2)}</div><div class="balance-label">Đã dùng: $${used.toFixed(2)} / $${granted.toFixed(2)}</div></div>`;
+                return;
+            }
+        } catch {}
+    }
+    box.innerHTML = '<div class="caption" style="color:#f85149">API không hỗ trợ xem số dư hoặc bị chặn CORS.</div>';
+}
+
+async function sendMessage() {
+    const input = document.getElementById("msg-input");
+    const fileInput = document.getElementById("file-input");
+    let text = input.value.trim();
+    const files = [...fileInput.files];
+    if (!text && !files.length) return;
+    if (!text && files.length) text = "Hãy phân tích và tóm tắt chi tiết nội dung các tệp đính kèm này.";
+
+    const docTexts = [], imageUrls = [], attachedNames = [];
+    for (const f of files) {
+        attachedNames.push(f.name);
+        if (f.type.startsWith("image/")) imageUrls.push(await compressImage(f));
+        else docTexts.push(await readTextFile(f));
+    }
+    const fullText = docTexts.length ? `${text}\n\n${docTexts.join("\n\n")}` : text;
+    input.value = ""; fileInput.value = ""; updateFileCount();
+
+    if (!convs[currentId]) convs[currentId] = { id: currentId, title: text.slice(0, 55), updated: Date.now(), messages: [] };
+    convs[currentId].messages.push({ role: "user", display_text: text, full_text: fullText, image_urls: imageUrls, attached_names: attachedNames });
+    convs[currentId].updated = Date.now();
+    appendBubble("user", text, "", "", imageUrls, attachedNames);
+
+    const apiKey = document.getElementById("api-key").value.trim();
+    const baseUrl = document.getElementById("base-url").value.trim().replace(/\/$/, "");
+    let activeMode = document.getElementById("mode").value;
+    let activeModel = document.getElementById("model").value;
+    const levelLabel = document.getElementById("effort").value;
+    let effort = resolveEffort(levelLabel, text, files.length > 0);
+    const mult = parseFloat(document.getElementById("multiplier").value) || 0.25;
+    const autoFallback = document.getElementById("auto-fallback").checked;
+
+    const aiRow = appendBubble("assistant", "");
+    const bubble = aiRow.querySelector(".bubble");
+    const contentEl = aiRow.querySelector(".content");
+    const metaEl = aiRow.querySelector(".meta");
+    const thinkEl = document.createElement("div");
+    thinkEl.className = "thinking-card";
+    bubble.insertBefore(thinkEl, contentEl);
+
+    const t0 = Date.now();
+    const updateThink = (phase) => {
+        const sec = ((Date.now() - t0) / 1000).toFixed(1);
+        thinkEl.innerHTML = `<svg class="thinking-logo" viewBox="0 0 24 24"><path d="${OPENAI_PATH}"/></svg><span><strong>${phase}</strong> (${activeModel} · ${effort} · ${sec}s)</span><span class="thinking-dots"><span></span><span></span><span></span></span>`;
+    };
+    updateThink("Đang gửi & suy nghĩ");
+
+    document.getElementById("send-btn").disabled = true;
+    document.getElementById("status").innerText = "Đang xử lý...";
+
+    let answer = "", reasoning = "", reasonEl = null, usage = null, lastErr = null;
+
+    for (let attempt = 1; attempt <= 5; attempt++) {
+        try {
+            const cfg = CLIENT_MODES[activeMode];
+            const res = await fetch(`${baseUrl}${cfg.endpoint}`, {
+                method: "POST",
+                headers: makeHeaders(apiKey, activeMode),
+                body: JSON.stringify(buildPayload(convs[currentId].messages, activeModel, effort, activeMode, true))
+            });
+            if (!res.ok) throw new Error(`HTTP ${res.status} - ${await res.text()}`);
+
+            const reader = res.body.getReader();
+            const decoder = new TextDecoder();
+            let buf = "";
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                buf += decoder.decode(value, { stream: true });
+                const lines = buf.split("\n");
+                buf = lines.pop();
+                for (const line of lines) {
+                    if (!line.startsWith("data: ")) continue;
+                    const str = line.slice(6).trim();
+                    if (str === "[DONE]") break;
+                    try {
+                        const obj = JSON.parse(str);
+                        if (obj.usage) usage = obj.usage;
+                        const delta = obj.choices?.[0]?.delta || {};
+                        const rPiece = delta.reasoning_content || delta.reasoning || (["response.reasoning_summary_text.delta", "response.reasoning_text.delta"].includes(obj.type) ? obj.delta : "");
+                        if (rPiece) {
+                            reasoning += rPiece;
+                            updateThink("Đang tư duy từng bước");
+                            if (!reasonEl) {
+                                reasonEl = document.createElement("details");
+                                reasonEl.className = "reasoning";
+                                reasonEl.open = true;
+                                reasonEl.innerHTML = "<summary>💭 Quá trình tư duy của AI (đang chạy...)</summary><div></div>";
+                                bubble.insertBefore(reasonEl, contentEl);
+                            }
+                            reasonEl.querySelector("div").innerHTML = marked.parse(reasoning);
+                        }
+                        const cPiece = delta.content || (["response.output_text.delta", "response.content_part.delta"].includes(obj.type) ? obj.delta : "");
+                        if (cPiece) {
+                            thinkEl.remove();
+                            answer += cPiece;
+                            contentEl.innerHTML = marked.parse(answer);
+                        }
+                        if (obj.type === "response.completed" && obj.response?.usage) usage = obj.response.usage;
+                        document.getElementById("chat-box").scrollTop = document.getElementById("chat-box").scrollHeight;
+                    } catch {}
+                }
+            }
+            lastErr = null;
+            break;
+        } catch (ex) {
+            lastErr = ex;
+            const errStr = ex.message.toLowerCase();
+            const is503 = errStr.includes("http 503");
+            if (!answer && attempt < 5) {
+                if ((effort === "max" || effort === "xhigh") && (is503 || errStr.includes("http 400"))) effort = "high";
+                if (autoFallback && is503 && attempt === 2 && activeMode === "Codex CLI (/v1/responses)") {
+                    activeMode = "OpenCode (/v1/chat/completions)";
+                    const n = document.createElement("div"); n.className = "notice-box"; n.innerText = `⚠️ Lỗi 503 → Tự chuyển sang ${activeMode}`;
+                    bubble.insertBefore(n, thinkEl);
+                } else if (autoFallback && is503 && attempt >= 3 && activeModel !== "gpt-6.1-sol") {
+                    activeModel = "gpt-6.1-sol";
+                    const n = document.createElement("div"); n.className = "notice-box"; n.innerText = "⚠️ Kênh bận (503) → Tự chuyển sang gpt-6.1-sol";
+                    bubble.insertBefore(n, thinkEl);
+                }
+                updateThink(`Đang thử lại (${attempt + 1}/5)`);
+                await new Promise(r => setTimeout(r, 600));
+                continue;
+            }
+            break;
+        }
+    }
+
+    thinkEl.remove();
+    if (lastErr && !answer) {
+        contentEl.innerHTML = `<span style="color:#f85149">Lỗi gọi API: ${lastErr.message}</span>`;
+    } else {
+        const sec = ((Date.now() - t0) / 1000).toFixed(1);
+        if (reasonEl) {
+            reasonEl.querySelector("summary").innerText = `✅ Đã suy nghĩ xong trong ${sec}s`;
+            reasonEl.open = false;
+        }
+        decorateCodeBlocks(aiRow);
+        addCopyButtons(aiRow, answer);
+
+        let meta = `📊 ${activeModel} (${levelLabel} → ${effort} · ${sec}s)`;
+        if (usage) {
+            const inTok = usage.prompt_tokens || usage.input_tokens || 0;
+            const outTok = usage.completion_tokens || usage.output_tokens || 0;
+            const cacheTok = (usage.prompt_tokens_details || usage.input_tokens_details || {}).cached_tokens || 0;
+            const rate = activeModel.includes("astra") ? MODEL_PRICING["gpt-6-astra"] : MODEL_PRICING["gpt-6.1-sol"];
+            const cost = ((Math.max(0, inTok - cacheTok) * rate.input + cacheTok * rate.cached + outTok * rate.output) / 1e6) * mult;
+            const totalTok = inTok + outTok;
+            sessionCost += cost;
+            sessionTokens += totalTok;
+
+            const today = new Date().toISOString().slice(0, 10);
+            stats.total_tokens += totalTok;
+            stats.total_cost += cost;
+            stats.total_messages += 1;
+            if (!stats.daily[today]) stats.daily[today] = { tokens: 0, cost: 0, messages: 0, input_tokens: 0, output_tokens: 0 };
+            stats.daily[today].tokens += totalTok;
+            stats.daily[today].cost += cost;
+            stats.daily[today].messages += 1;
+            stats.daily[today].input_tokens += inTok;
+            stats.daily[today].output_tokens += outTok;
+            meta += ` | Input: ${inTok.toLocaleString()}${cacheTok ? ` (Cache: ${cacheTok.toLocaleString()})` : ""} · Output: ${outTok.toLocaleString()} | Chi phí: $${cost.toFixed(6)}`;
+        }
+        metaEl.innerText = meta;
+        convs[currentId].messages.push({ role: "assistant", display_text: answer, full_text: answer, reasoning_text: reasoning.trim(), meta });
+        saveState();
+        renderSidebar();
+    }
+
+    document.getElementById("send-btn").disabled = false;
+    document.getElementById("status").innerText = "Sẵn sàng";
+}
+
+document.getElementById("msg-input").addEventListener("keydown", e => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+initParticles();
+updateEffortDesc();
+renderAll();
+</script>
+</body>
+</html>
