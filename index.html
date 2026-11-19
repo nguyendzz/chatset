@@ -3,14 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>✨ Chat sex premium</title>
+<title>✨ Chat sex Pro Max</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
 :root {
     --bg-base: #05070d;
-    --glass-bg: rgba(15, 20, 32, 0.72);
     --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-hover: rgba(255, 255, 255, 0.16);
     --ag-blue: #4285f4;
     --ag-cyan: #22d3ee;
     --ag-purple: #a855f7;
@@ -63,7 +61,6 @@ body {
     z-index: 1;
     transform: translate(-50%, -50%);
     background: radial-gradient(circle, rgba(66, 133, 244, 0.11) 0%, rgba(168, 85, 247, 0.06) 35%, rgba(16, 163, 127, 0.03) 60%, transparent 72%);
-    transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease;
 }
 .ag-click-ring {
     position: fixed;
@@ -547,18 +544,17 @@ body {
         <div class="section-title"><span>⚙️ Cấu hình AI & Live Model</span><span class="status-dot" id="api-dot"></span></div>
         <label>Nhà cung cấp (Provider)</label>
         <select id="provider" onchange="onProviderChange()">
-            <option value="gemini">Gemini (Google AI Studio)</option>
             <option value="xingchi">xingchiapi (OpenAI-compat)</option>
+            <option value="gemini">Gemini (Google AI Studio)</option>
         </select>
 
-        <label>API Key (tự lưu riêng từng Provider)</label>
-        <input type="password" id="api-key" oninput="saveCurrentKey()">
+        <label>Cloudflare Worker Proxy</label>
+        <input type="text" id="worker-url" value="https://aigene.nguyendz290.workers.dev" oninput="saveWorkerUrl()">
 
-        <div id="xingchi-extra" style="display:none;flex-direction:column;gap:6px;">
-            <label>Base URL</label>
-            <input type="text" id="base-url" value="https://api.xingchiapi.com/v1">
-            <label>CORS Proxy URL (Cloudflare Worker, để trống nếu gọi trực tiếp)</label>
-            <input type="text" id="proxy-url" placeholder="https://api-proxy.ten-ban.workers.dev" oninput="saveProxyUrl()">
+        <label>API Key riêng (để trống = dùng Key bảo mật trên Worker)</label>
+        <input type="password" id="api-key" placeholder="Đang dùng Key bảo mật trên Worker" oninput="saveCurrentKey()">
+
+        <div id="xingchi-extra" style="display:flex;flex-direction:column;gap:6px;">
             <label>Chế độ kết nối</label>
             <select id="mode">
                 <option value="Codex CLI (/v1/responses)">Codex CLI (/v1/responses)</option>
@@ -602,7 +598,7 @@ body {
         <input type="file" id="avatar-input" accept="image/*" style="font-size:11px;color:#94a3b8;" onchange="uploadAvatar(this)">
         <label>Logo AI</label>
         <select id="ai-avatar-choice" onchange="renderMessages()">
-            <option value="gemini" selected>✨ Antigravity Sparkle</option>
+            <option value="gemini" selected>✨ Giao diện new</option>
             <option value="green">ChatGPT Xanh ngọc</option>
             <option value="white">ChatGPT Trắng tinh</option>
             <option value="user">Dùng ảnh của tôi</option>
@@ -632,7 +628,7 @@ body {
 
 <div class="main">
     <div class="header">
-        <div class="brand-title">✨ Chat sex premium</div>
+        <div class="brand-title">Chat Gehihi</div>
         <div class="header-pill ag-glow">
             <span class="status-dot" id="header-dot"></span>
             <span id="status">Sẵn sàng</span>
@@ -650,19 +646,18 @@ body {
 </div>
 
 <script>
+const DEFAULT_WORKER = "https://aigene.nguyendz290.workers.dev";
 const OPENAI_PATH = "M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001a6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z";
 const SPARKLE_PATH = "M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z";
 
 const PROVIDERS = {
-    gemini: {
-        name: "Gemini (Google AI Studio)",
-        defaultKey: " ",
-        defaultModels: ["gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3.8-flash", "gemini-2.5-flash", "gemini-2.5-pro"]
-    },
     xingchi: {
         name: "xingchiapi (OpenAI-compat)",
-        defaultKey: " ",
         defaultModels: ["gpt-6.1-sol", "gpt-6-astra"]
+    },
+    gemini: {
+        name: "Gemini (Google AI Studio)",
+        defaultModels: ["gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3.8-flash", "gemini-2.5-flash", "gemini-2.5-pro"]
     }
 };
 
@@ -683,19 +678,19 @@ const MODEL_PRICING = {
 };
 
 const CLIENT_MODES = {
-    "Codex CLI (/v1/responses)": { endpoint: "/responses", headers: { "OpenAI-Beta": "responses=experimental" } },
-    "OpenCode (/v1/chat/completions)": { endpoint: "/chat/completions", headers: { "X-Title": "OpenCode" } },
-    "ZCode (/v1/chat/completions)": { endpoint: "/chat/completions", headers: { "X-Title": "ZCode" } },
-    "Hermes Agent (/v1/chat/completions)": { endpoint: "/chat/completions", headers: { "X-Title": "Hermes Agent" } }
+    "Codex CLI (/v1/responses)": { endpoint: "/responses" },
+    "OpenCode (/v1/chat/completions)": { endpoint: "/chat/completions" },
+    "ZCode (/v1/chat/completions)": { endpoint: "/chat/completions" },
+    "Hermes Agent (/v1/chat/completions)": { endpoint: "/chat/completions" }
 };
 
 let convs = JSON.parse(localStorage.getItem("csp_convs_v3") || "{}");
 let stats = JSON.parse(localStorage.getItem("csp_stats_v3") || '{"total_tokens":0,"total_cost":0,"total_messages":0,"daily":{}}');
-let savedKeys = JSON.parse(localStorage.getItem("csp_keys_v3") || "{}");
+let savedKeys = JSON.parse(localStorage.getItem("csp_keys_v4") || "{}");
 let savedModels = JSON.parse(localStorage.getItem("csp_models_v3") || "{}");
 let providerModels = {
-    gemini: [...PROVIDERS.gemini.defaultModels],
-    xingchi: [...PROVIDERS.xingchi.defaultModels]
+    xingchi: [...PROVIDERS.xingchi.defaultModels],
+    gemini: [...PROVIDERS.gemini.defaultModels]
 };
 let modelStatusMap = {};
 let userAvatarData = localStorage.getItem("csp_avatar_v3") || "";
@@ -817,14 +812,22 @@ function initAntigravityFX() {
     tick();
 }
 
+function getWorkerBase() {
+    return (document.getElementById("worker-url").value.trim() || DEFAULT_WORKER).replace(/\/$/, "");
+}
+
+function saveWorkerUrl() {
+    localStorage.setItem("csp_worker_v4", document.getElementById("worker-url").value.trim());
+}
+
 function getProviderKey(p) {
-    return (savedKeys[p] || PROVIDERS[p].defaultKey || "").trim();
+    return (savedKeys[p] || "").trim();
 }
 
 function saveCurrentKey() {
     const p = document.getElementById("provider").value;
     savedKeys[p] = document.getElementById("api-key").value.trim();
-    localStorage.setItem("csp_keys_v3", JSON.stringify(savedKeys));
+    localStorage.setItem("csp_keys_v4", JSON.stringify(savedKeys));
 }
 
 function saveCurrentModel() {
@@ -833,14 +836,12 @@ function saveCurrentModel() {
     localStorage.setItem("csp_models_v3", JSON.stringify(savedModels));
 }
 
-function saveProxyUrl() {
-    localStorage.setItem("csp_proxy_v3", document.getElementById("proxy-url").value.trim());
-}
-
-function getEffectiveXingchiBase() {
-    const proxy = document.getElementById("proxy-url").value.trim().replace(/\/$/, "");
-    const base = document.getElementById("base-url").value.trim().replace(/\/$/, "");
-    return proxy ? proxy : base;
+function buildWorkerHeaders(p, modeName = "") {
+    const h = { "Content-Type": "application/json" };
+    const ck = getProviderKey(p);
+    if (ck) h["X-Custom-Key"] = ck;
+    if (modeName) h["X-Client-Mode"] = modeName;
+    return h;
 }
 
 function populateModelSelect() {
@@ -899,16 +900,18 @@ function setStatus(text, type = "ok") {
     });
 }
 
-function getGeminiEndpoints(key, model, stream = true) {
-    const action = stream ? "streamGenerateContent?alt=sse&" : "generateContent?";
-    const aiStudio = `https://generativelanguage.googleapis.com/v1beta/models/${model}:${action}key=${encodeURIComponent(key)}`;
-    const vertexExpress = `https://aiplatform.googleapis.com/v1/publishers/google/models/${model}:${action}key=${encodeURIComponent(key)}`;
-    return key.startsWith("AQ.") ? [vertexExpress, aiStudio] : [aiStudio, vertexExpress];
+function getGeminiEndpoints(model, stream = true) {
+    const w = getWorkerBase();
+    const action = stream ? "streamGenerateContent?alt=sse" : "generateContent";
+    return [
+        `${w}/gemini/v1/publishers/google/models/${model}:${action}`,
+        `${w}/gemini-studio/v1beta/models/${model}:${action}`
+    ];
 }
 
 async function refreshModels(notify = true) {
     const p = document.getElementById("provider").value;
-    const key = getProviderKey(p);
+    const w = getWorkerBase();
     const btn = document.getElementById("btn-refresh-models");
     const log = document.getElementById("conn-log");
     btn.disabled = true;
@@ -916,13 +919,10 @@ async function refreshModels(notify = true) {
     let fetched = [];
     try {
         if (p === "gemini") {
-            const urls = [
-                `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(key)}`,
-                `https://aiplatform.googleapis.com/v1/publishers/google/models?key=${encodeURIComponent(key)}`
-            ];
+            const urls = [`${w}/gemini/v1/publishers/google/models`, `${w}/gemini-studio/v1beta/models`];
             for (const u of urls) {
                 try {
-                    const r = await fetch(u);
+                    const r = await fetch(u, { headers: buildWorkerHeaders("gemini") });
                     if (r.ok) {
                         const data = await r.json();
                         const raw = (data.models || []).map(m => (m.name || "").replace(/^.*models\//, "")).filter(id => id && /gemini/i.test(id) && !/embed|imagen|aqa|tts/i.test(id));
@@ -935,8 +935,7 @@ async function refreshModels(notify = true) {
                 } catch {}
             }
         } else {
-            const base = getEffectiveXingchiBase();
-            const r = await fetch(`${base}/models`, { headers: { "Authorization": `Bearer ${key}` } });
+            const r = await fetch(`${w}/xingchi/models`, { headers: buildWorkerHeaders("xingchi", "Codex CLI (/v1/responses)") });
             if (r.ok) {
                 const data = await r.json();
                 const raw = (data.data || []).map(m => m.id).filter(id => id && !/image|whisper|tts/i.test(id));
@@ -950,21 +949,20 @@ async function refreshModels(notify = true) {
         populateModelSelect();
         if (notify) log.innerHTML = `<span style="color:#34d399">✅ Đã đồng bộ ${fetched.length} model từ server.</span>`;
     } else if (notify) {
-        log.innerHTML = `<span style="color:#fbbf24">ℹ️ Đang dùng danh sách model mặc định (${p === "xingchi" ? "cần Proxy CORS nếu muốn đồng bộ trực tiếp" : "kiểm tra lại Key"}).</span>`;
+        log.innerHTML = `<span style="color:#fbbf24">ℹ️ Đang dùng danh sách model mặc định.</span>`;
     }
     btn.disabled = false;
     btn.textContent = "🔄 Cập nhật Model";
 }
 
-async function pingSingleModel(p, key, model) {
+async function pingSingleModel(p, model) {
     const t0 = performance.now();
     if (p === "gemini") {
-        const urls = getGeminiEndpoints(key, model, false);
-        for (const u of urls) {
+        for (const u of getGeminiEndpoints(model, false)) {
             try {
                 const r = await fetch(u, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: buildWorkerHeaders("gemini"),
                     body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: "Say OK" }] }] })
                 });
                 if (r.ok) return { ok: true, ms: ((performance.now() - t0) / 1000).toFixed(2) };
@@ -972,27 +970,26 @@ async function pingSingleModel(p, key, model) {
         }
         return { ok: false, err: "Lỗi/Không hỗ trợ" };
     } else {
-        const base = getEffectiveXingchiBase();
+        const w = getWorkerBase();
         for (const [mName, cfg] of Object.entries(CLIENT_MODES)) {
             try {
                 const payload = cfg.endpoint === "/responses"
                     ? { model, input: [{ role: "user", content: [{ type: "input_text", text: "Say OK" }] }], max_output_tokens: 8, store: false, stream: false }
                     : { model, messages: [{ role: "user", content: "Say OK" }], max_tokens: 8, stream: false };
-                const r = await fetch(`${base}${cfg.endpoint}`, {
+                const r = await fetch(`${w}/xingchi${cfg.endpoint}`, {
                     method: "POST",
-                    headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json", ...cfg.headers },
+                    headers: buildWorkerHeaders("xingchi", mName),
                     body: JSON.stringify(payload)
                 });
                 if (r.ok) return { ok: true, ms: ((performance.now() - t0) / 1000).toFixed(2), mode: mName };
             } catch {}
         }
-        return { ok: false, err: "CORS / Offline" };
+        return { ok: false, err: "Offline / 503" };
     }
 }
 
 async function checkLiveModels() {
     const p = document.getElementById("provider").value;
-    const key = getProviderKey(p);
     const btn = document.getElementById("btn-check-live");
     const log = document.getElementById("conn-log");
     btn.disabled = true;
@@ -1001,7 +998,7 @@ async function checkLiveModels() {
     setStatus("Đang Check Live AI...", "warn");
 
     const list = (providerModels[p] || []).slice(0, 6);
-    const results = await Promise.all(list.map(async m => ({ model: m, ...(await pingSingleModel(p, key, m)) })));
+    const results = await Promise.all(list.map(async m => ({ model: m, ...(await pingSingleModel(p, m)) })));
     let firstLive = null;
     const lines = [];
     results.forEach(res => {
@@ -1016,7 +1013,7 @@ async function checkLiveModels() {
         saveCurrentModel();
         setStatus(`LIVE: ${firstLive.model} (${firstLive.ms}s)`, "ok");
     } else {
-        setStatus(p === "xingchi" ? "Bị chặn CORS (Cần Proxy)" : "Không có model Live", "err");
+        setStatus("Không có model Live", "err");
     }
     log.innerHTML = lines.join("<br>");
     btn.disabled = false;
@@ -1166,9 +1163,9 @@ function renderMessages() {
     if (!msgs.length) {
         box.innerHTML = `
             <div class="welcome-panel ag-glow">
-                <div class="welcome-badge">✨ Antigravity Workspace Ready</div>
-                <h2>Chat sex premium</h2>
-                <p>Hỗ trợ song song <strong>Gemini AI Studio</strong> và <strong>XingchiAPI</strong>, tự động quét model đang Live và chuyển đổi dự phòng tức thì. Nhập câu hỏi hoặc đính kèm hình ảnh ở thanh bên dưới để bắt đầu.</p>
+                <div class="welcome-badge">✨ Giao diện new</div>
+                <h2>Gehihi premium</h2>
+                <p>Hỗ trợ song song <strong>XingchiAPI</strong> và <strong>Gemini AI Studio</strong> qua Cloudflare Worker bảo mật, tự động quét model đang Live và chuyển đổi dự phòng tức thì.</p>
             </div>
         `;
         return;
@@ -1225,7 +1222,7 @@ function appendBubble(role, text, reasoning = "", meta = "", images = [], attach
     row.className = `msg-row ${role}`;
     const attHtml = attached && attached.length ? `<div class="caption">📎 Đã đính kèm: ${attached.join(", ")}</div>` : "";
     const imgHtml = (images || []).map(u => `<img class="preview" src="${u}">`).join("");
-    const reasonHtml = reasoning ? `<details class="reasoning"><summary>💭 Quá trình tư duy của AI</summary><div>${marked.parse(reasoning)}</div></details>` : "";
+    const reasonHtml = reasoning ? `<details class="reasoning"><summary>💭 Đang suy nghĩ, chờ em chút thôi. </summary><div>${marked.parse(reasoning)}</div></details>` : "";
     row.innerHTML = `<div class="avatar">${getAvatarHtml(role)}</div><div class="bubble ag-glow">${attHtml}${imgHtml}${reasonHtml}<div class="content">${marked.parse(text || "")}</div><div class="copy-btn-container"></div><div class="meta">${meta || ""}</div></div>`;
     decorateCodeBlocks(row);
     if (role === "assistant" && text) addCopyButtons(row, text);
@@ -1280,12 +1277,11 @@ async function checkBalance() {
         box.innerHTML = '<div class="caption">ℹ️ Gemini sử dụng hạn mức trực tiếp từ Google AI Studio / Cloud.</div>';
         return;
     }
-    const apiKey = getProviderKey("xingchi");
-    const baseUrl = getEffectiveXingchiBase().replace(/\/v1\/?$/, "");
+    const w = getWorkerBase();
     box.innerHTML = '<div class="caption">Đang kiểm tra số dư...</div>';
     for (const ep of ["/dashboard/billing/credit_grants", "/dashboard/billing/subscription", "/billing/credit_grants"]) {
         try {
-            const r = await fetch(`${baseUrl}${ep}`, { headers: { "Authorization": `Bearer ${apiKey}` } });
+            const r = await fetch(`${w}/xingchi-root${ep}`, { headers: buildWorkerHeaders("xingchi") });
             if (r.ok) {
                 const bal = await r.json();
                 const granted = bal.total_granted || bal.hard_limit_usd || 0;
@@ -1297,10 +1293,10 @@ async function checkBalance() {
             }
         } catch {}
     }
-    box.innerHTML = '<div class="caption" style="color:#f87171">API không hỗ trợ xem số dư hoặc cần cấu hình CORS Proxy.</div>';
+    box.innerHTML = '<div class="caption" style="color:#f87171">API không hỗ trợ endpoint xem số dư.</div>';
 }
 
-async function streamGemini(key, model, messages, onReasoning, onContent) {
+async function streamGemini(model, messages, onReasoning, onContent) {
     const contents = messages.map(m => {
         const parts = [{ text: m.full_text }];
         if (m.role === "user" && m.image_urls) {
@@ -1312,13 +1308,12 @@ async function streamGemini(key, model, messages, onReasoning, onContent) {
         return { role: m.role === "assistant" ? "model" : "user", parts };
     });
 
-    const urls = getGeminiEndpoints(key, model, true);
     let lastErr = null;
-    for (const url of urls) {
+    for (const url of getGeminiEndpoints(model, true)) {
         try {
             const res = await fetch(url, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: buildWorkerHeaders("gemini"),
                 body: JSON.stringify({ contents })
             });
             if (!res.ok) throw new Error(`HTTP ${res.status} - ${await res.text()}`);
@@ -1359,9 +1354,9 @@ async function streamGemini(key, model, messages, onReasoning, onContent) {
     throw lastErr || new Error("Không gọi được Gemini API");
 }
 
-async function streamXingchi(key, model, modeName, effort, messages, onReasoning, onContent) {
+async function streamXingchi(model, modeName, effort, messages, onReasoning, onContent) {
     const cfg = CLIENT_MODES[modeName];
-    const base = getEffectiveXingchiBase();
+    const w = getWorkerBase();
     const payload = cfg.endpoint === "/responses"
         ? {
             model,
@@ -1385,9 +1380,9 @@ async function streamXingchi(key, model, modeName, effort, messages, onReasoning
             stream_options: { include_usage: true }
         };
 
-    const res = await fetch(`${base}${cfg.endpoint}`, {
+    const res = await fetch(`${w}/xingchi${cfg.endpoint}`, {
         method: "POST",
-        headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/json", ...cfg.headers },
+        headers: buildWorkerHeaders("xingchi", modeName),
         body: JSON.stringify(payload)
     });
     if (!res.ok) throw new Error(`HTTP ${res.status} - ${await res.text()}`);
@@ -1468,7 +1463,7 @@ async function sendMessage() {
     updateThink("Đang gửi & suy nghĩ");
 
     document.getElementById("send-btn").disabled = true;
-    setStatus("AI đang xử lý...", "warn");
+    setStatus("Tao đang xử lý...", "warn");
 
     const addNotice = (msg) => {
         const n = document.createElement("div");
@@ -1484,7 +1479,7 @@ async function sendMessage() {
             reasonEl = document.createElement("details");
             reasonEl.className = "reasoning";
             reasonEl.open = true;
-            reasonEl.innerHTML = "<summary>💭 Quá trình tư duy của AI (đang chạy...)</summary><div></div>";
+            reasonEl.innerHTML = "<summary>💭 Đang suy nghĩ, chờ em chút thôi. </summary><div></div>";
             bubble.insertBefore(reasonEl, contentEl);
         }
         reasonEl.querySelector("div").innerHTML = marked.parse(reasoning);
@@ -1519,12 +1514,10 @@ async function sendMessage() {
             updateThink("Đang thử kênh dự phòng");
         }
         try {
-            const key = getProviderKey(activeProvider);
-            if (!key) throw new Error("Thiếu API Key");
             if (activeProvider === "gemini") {
-                usage = await streamGemini(key, activeModel, convs[currentId].messages, onReasoning, onContent);
+                usage = await streamGemini(activeModel, convs[currentId].messages, onReasoning, onContent);
             } else {
-                usage = await streamXingchi(key, activeModel, step.mode || "OpenCode (/v1/chat/completions)", effort, convs[currentId].messages, onReasoning, onContent);
+                usage = await streamXingchi(activeModel, step.mode || "OpenCode (/v1/chat/completions)", effort, convs[currentId].messages, onReasoning, onContent);
             }
             lastErr = null;
             break;
@@ -1537,11 +1530,11 @@ async function sendMessage() {
     thinkEl.remove();
     if (lastErr && !answer) {
         contentEl.innerHTML = `<span style="color:#f87171">Lỗi gọi API: ${lastErr.message}</span>`;
-        setStatus("Lỗi kết nối", "err");
+        setStatus("Mất kết nối ♫", "err");
     } else {
         const sec = ((Date.now() - t0) / 1000).toFixed(1);
         if (reasonEl) {
-            reasonEl.querySelector("summary").innerText = `✅ Đã suy nghĩ xong trong ${sec}s`;
+            reasonEl.querySelector("summary").innerText = `✅ Đã load xong trong ${sec}s`;
             reasonEl.open = false;
         }
         decorateCodeBlocks(aiRow);
@@ -1584,9 +1577,9 @@ document.getElementById("msg-input").addEventListener("keydown", e => {
 
 (function boot() {
     initAntigravityFX();
-    const savedP = localStorage.getItem("csp_provider_v3") || "gemini";
+    const savedP = localStorage.getItem("csp_provider_v3") || "xingchi";
     document.getElementById("provider").value = savedP;
-    document.getElementById("proxy-url").value = localStorage.getItem("csp_proxy_v3") || "";
+    document.getElementById("worker-url").value = localStorage.getItem("csp_worker_v4") || DEFAULT_WORKER;
     updateEffortDesc();
     onProviderChange();
     renderAll();
