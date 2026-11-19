@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ Chat sex premium</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #0f1117; color: #e6edf3; display: flex; height: 100vh; overflow: hidden; }
+.sidebar { width: 290px; background: #161b22; border-right: 1px solid #30363d; display: flex; flex-direction: column; padding: 14px; gap: 12px; overflow-y: auto; }
+.sidebar h3 { font-size: 14px; color: #10a37f; margin-bottom: 4px; }
+.sidebar label { font-size: 12px; color: #8b949e; display: block; margin-top: 6px; }
+.sidebar input, .sidebar select { width: 100%; padding: 7px 10px; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: #e6edf3; font-size: 13px; margin-top: 4px; }
+.btn { padding: 8px 12px; border-radius: 8px; border: none; background: #10a37f; color: #fff; font-weight: 600; cursor: pointer; font-size: 13px; }
+.btn:hover { background: #0e8a6b; }
+.btn-sec { background: #21262d; border: 1px solid #30363d; }
+.btn-sec:hover { background: #30363d; }
+.conv-list { display: flex; flex-direction: column; gap: 4px; max-height: 200px; overflow-y: auto; }
+.conv-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 12px; background: #0d1117; border: 1px solid transparent; }
+.conv-item.active, .conv-item:hover { border-color: #10a37f; background: rgba(16, 163, 127, 0.12); }
+.conv-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.del-btn { background: none; border: none; color: #f85149; cursor: pointer; margin-left: 6px; }
+.stats-box { background: rgba(16, 163, 127, 0.08); border: 1px solid rgba(16, 163, 127, 0.25); border-radius: 10px; padding: 10px; font-size: 12px; line-height: 1.6; }
+.main { flex: 1; display: flex; flex-direction: column; height: 100vh; }
+.header { padding: 14px 20px; border-bottom: 1px solid #30363d; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+.chat-box { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.msg { max-width: 82%; padding: 12px 16px; border-radius: 16px; line-height: 1.6; font-size: 14px; word-wrap: break-word; }
+.msg.user { align-self: flex-end; background: linear-gradient(135deg, rgba(14, 116, 234, 0.22), rgba(99, 60, 255, 0.18)); border: 1px solid rgba(14, 116, 234, 0.35); border-bottom-right-radius: 4px; }
+.msg.assistant { align-self: flex-start; background: #161b22; border: 1px solid #30363d; border-bottom-left-radius: 4px; }
+.msg pre { background: #0d1117; padding: 10px; border-radius: 8px; overflow-x: auto; margin: 8px 0; }
+.msg code { font-family: ui-monospace, monospace; font-size: 13px; }
+.reasoning { background: rgba(16, 163, 127, 0.08); border-left: 3px solid #10a37f; padding: 8px 12px; margin-bottom: 10px; border-radius: 6px; font-size: 12px; color: #8b949e; }
+.reasoning summary { cursor: pointer; font-weight: 600; color: #10a37f; }
+.meta { font-size: 11px; color: #8b949e; margin-top: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.copy-btn { background: #21262d; border: 1px solid #30363d; color: #e6edf3; padding: 3px 8px; border-radius: 6px; font-size: 11px; cursor: pointer; }
+.copy-btn:hover { border-color: #10a37f; color: #10a37f; }
+.input-area { padding: 14px 20px; border-top: 1px solid #30363d; background: #161b22; display: flex; gap: 10px; align-items: center; }
+.input-area textarea { flex: 1; resize: none; height: 44px; padding: 10px 14px; border-radius: 10px; border: 1px solid #30363d; background: #0d1117; color: #e6edf3; font-family: inherit; font-size: 14px; }
+.file-label { padding: 10px 12px; background: #21262d; border: 1px solid #30363d; border-radius: 10px; cursor: pointer; font-size: 14px; }
+#file-count { font-size: 11px; color: #10a37f; }
+</style>
+</head>
+<body>
+<div class="sidebar">
+    <h3>💬 Cuộc hội thoại</h3>
+    <button class="btn" onclick="newChat()">➕ Cuộc trò chuyện mới</button>
+    <div class="conv-list" id="conv-list"></div>
+    <hr style="border-color:#30363d">
+    <h3>⚙️ Cấu hình API</h3>
+    <label>API Key</label>
+    <input type="password" id="api-key" value="sk-c2c32ff6b89bb397afe8fae4073a19f9ede34b13c521ad3bf7e1e0dd3612f92c">
+    <label>Base URL</label>
+    <input type="text" id="base-url" value="https://api.xingchiapi.com/v1">
+    <label>Chế độ kết nối</label>
+    <select id="mode">
+        <option value="Codex CLI (/v1/responses)">Codex CLI (/v1/responses)</option>
+        <option value="OpenCode (/v1/chat/completions)">OpenCode (/v1/chat/completions)</option>
+        <option value="ZCode (/v1/chat/completions)">ZCode (/v1/chat/completions)</option>
+        <option value="Hermes Agent (/v1/chat/completions)">Hermes Agent (/v1/chat/completions)</option>
+    </select>
+    <label>Model</label>
+    <select id="model">
+        <option value="gpt-6.1-sol">gpt-6.1-sol</option>
+        <option value="gpt-6-astra">gpt-6-astra</option>
+    </select>
+    <label>Cấp độ tư duy</label>
+    <select id="effort">
+        <option value="auto">🤖 Tự động</option>
+        <option value="low">⚡ Nhanh</option>
+        <option value="medium">⚖️ Trung bình</option>
+        <option value="high">🧠 High</option>
+        <option value="xhigh">🔬 xHigh</option>
+        <option value="max">🌌 MAX</option>
+    </select>
+    <label>Hệ số giá</label>
+    <input type="number" id="multiplier" value="0.25" step="0.05">
+    <hr style="border-color:#30363d">
+    <h3>📊 Thống kê tổng</h3>
+    <div class="stats-box" id="stats-box">Đang tải...</div>
+</div>
+
+<div class="main">
+    <div class="header">
+        <span>✨ Chat sex premium</span>
+        <span id="status" style="font-size:12px;color:#10a37f;">Sẵn sàng</span>
+    </div>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="input-area">
+        <label class="file-label" for="file-input">📎 <span id="file-count"></span></label>
+        <input type="file" id="file-input" multiple style="display:none" onchange="updateFileCount()">
+        <textarea id="msg-input" placeholder="Nhập câu hỏi... (Enter để gửi, Shift+Enter xuống dòng)"></textarea>
+        <button class="btn" id="send-btn" onclick="sendMessage()">Gửi</button>
+    </div>
+</div>
+
+<script>
+let currentConvId = new Date().toISOString().replace(/[-:T.]/g, '').slice(0, 14);
+
+function updateFileCount() {
+    const files = document.getElementById('file-input').files;
+    document.getElementById('file-count').innerText = files.length ? files.length : '';
+}
+
+async function loadConversations() {
+    const res = await fetch('/api/conversations');
+    const list = await res.json();
+    const el = document.getElementById('conv-list');
+    el.innerHTML = '';
+    list.forEach(c => {
+        const div = document.createElement('div');
+        div.className = 'conv-item' + (c.id === currentConvId ? ' active' : '');
+        div.innerHTML = `<span class="conv-title" onclick="openConv('${c.id}')">${c.title}</span><button class="del-btn" onclick="delConv('${c.id}')">✕</button>`;
+        el.appendChild(div);
+    });
+}
+
+async function loadStats() {
+    const res = await fetch('/api/stats');
+    const s = await res.json();
+    document.getElementById('stats-box').innerHTML = `
+        Tokens: <strong>${(s.total_tokens || 0).toLocaleString()}</strong><br>
+        Chi phí: <strong>$${(s.total_cost || 0).toFixed(4)}</strong><br>
+        Tin nhắn: <strong>${s.total_messages || 0}</strong>
+    `;
+}
+
+function newChat() {
+    currentConvId = new Date().toISOString().replace(/[-:T.]/g, '').slice(0, 14);
+    document.getElementById('chat-box').innerHTML = '';
+    loadConversations();
+}
+
+async function openConv(id) {
+    currentConvId = id;
+    const res = await fetch(`/api/conversations/${id}`);
+    const data = await res.json();
+    const box = document.getElementById('chat-box');
+    box.innerHTML = '';
+    (data.messages || []).forEach(m => appendMessage(m.role, m.display_text, m.reasoning_text, m.meta));
+    loadConversations();
+}
+
+async function delConv(id) {
+    await fetch(`/api/conversations/${id}`, { method: 'DELETE' });
+    if (id === currentConvId) newChat();
+    else loadConversations();
+}
+
+function appendMessage(role, text, reasoning = '', meta = '') {
+    const box = document.getElementById('chat-box');
+    const div = document.createElement('div');
+    div.className = `msg ${role}`;
+    let html = '';
+    if (reasoning) {
+        html += `<details class="reasoning"><summary>💭 Quá trình tư duy</summary><div>${marked.parse(reasoning)}</div></details>`;
+    }
+    html += `<div class="content">${marked.parse(text || '')}</div>`;
+    if (role === 'assistant') {
+        html += `<div class="meta"><span>${meta}</span><button class="copy-btn" onclick="copyText(this)">📋 Copy</button></div>`;
+    }
+    div.innerHTML = html;
+    div.dataset.raw = text || '';
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+    return div;
+}
+
+function copyText(btn) {
+    const raw = btn.closest('.msg').dataset.raw || '';
+    navigator.clipboard.writeText(raw);
+    btn.innerText = '✓ Đã chép';
+    setTimeout(() => btn.innerText = '📋 Copy', 1500);
+}
+
+async function sendMessage() {
+    const input = document.getElementById('msg-input');
+    const files = document.getElementById('file-input').files;
+    const text = input.value.trim();
+    if (!text && !files.length) return;
+
+    appendMessage('user', text || '📎 Đính kèm tệp');
+    input.value = '';
+    document.getElementById('send-btn').disabled = true;
+    document.getElementById('status').innerText = 'Đang suy nghĩ...';
+
+    const fd = new FormData();
+    fd.append('conv_id', currentConvId);
+    fd.append('message', text);
+    fd.append('api_key', document.getElementById('api-key').value);
+    fd.append('base_url', document.getElementById('base-url').value);
+    fd.append('mode', document.getElementById('mode').value);
+    fd.append('model', document.getElementById('model').value);
+    fd.append('effort', document.getElementById('effort').value);
+    fd.append('multiplier', document.getElementById('multiplier').value);
+    fd.append('auto_fallback', 'true');
+    for (let f of files) fd.append('files', f);
+    document.getElementById('file-input').value = '';
+    updateFileCount();
+
+    const aiDiv = appendMessage('assistant', '...');
+    const contentEl = aiDiv.querySelector('.content');
+    const metaEl = aiDiv.querySelector('.meta span');
+    let fullText = '';
+    let fullReason = '';
+    let reasonEl = null;
+
+    const res = await fetch('/api/chat', { method: 'POST', body: fd });
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n\n');
+        buffer = lines.pop();
+        for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            const obj = JSON.parse(line.slice(6));
+            if (obj.type === 'reasoning') {
+                fullReason += obj.delta;
+                if (!reasonEl) {
+                    reasonEl = document.createElement('details');
+                    reasonEl.className = 'reasoning';
+                    reasonEl.open = true;
+                    reasonEl.innerHTML = '<summary>💭 Đang tư duy...</summary><div></div>';
+                    aiDiv.insertBefore(reasonEl, contentEl);
+                }
+                reasonEl.querySelector('div').innerHTML = marked.parse(fullReason);
+            } else if (obj.type === 'content') {
+                fullText += obj.delta;
+                contentEl.innerHTML = marked.parse(fullText);
+                aiDiv.dataset.raw = fullText;
+            } else if (obj.type === 'notice') {
+                document.getElementById('status').innerText = obj.text;
+            } else if (obj.type === 'error') {
+                contentEl.innerHTML = `<span style="color:#f85149">Lỗi: ${obj.text}</span>`;
+            } else if (obj.type === 'done') {
+                metaEl.innerText = obj.meta;
+                if (reasonEl) reasonEl.open = false;
+            }
+            document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
+        }
+    }
+
+    document.getElementById('send-btn').disabled = false;
+    document.getElementById('status').innerText = 'Sẵn sàng';
+    loadConversations();
+    loadStats();
+}
+
+document.getElementById('msg-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+    }
+});
+
+loadConversations();
+loadStats();
+</script>
+</body>
+</html>
